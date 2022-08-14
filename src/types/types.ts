@@ -1,6 +1,6 @@
-import {AudioPlayerError, AudioResource } from "@discordjs/voice";
-import {User} from "discord.js";
-import { Song, Queue, Playlist } from "..";
+import { AudioPlayerError, AudioResource } from "@discordjs/voice";
+import { User } from "discord.js";
+import { Playlist, Queue, Song } from "..";
 
 /**
  * Player options
@@ -25,6 +25,8 @@ export interface PlayerOptions {
     quality?: 'low'|'high',
     localAddress?: string,
     ytdlRequestOptions?: object,
+    cache?: boolean,
+    cachePath?: string,
 }
 
 /**
@@ -98,6 +100,8 @@ export const DefaultPlayerOptions: PlayerOptions = {
     timeout: 0,
     volume: 100,
     quality: 'high',
+    cache: true,
+    cachePath: './.cache'
 };
 
 /**

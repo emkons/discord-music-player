@@ -1,3 +1,8 @@
+import { getPlaylist, getSong } from "apple-music-metadata";
+import { ChannelType, GuildChannel } from "discord.js";
+import { getData, getPreview } from "spotify-url-info";
+import { Client, Playlist as IPlaylist, Video as IVideo, VideoCompact } from "youtubei";
+import YTSR, { Video } from 'ytsr';
 import {
     DefaultPlaylistOptions,
     DefaultPlayOptions,
@@ -8,13 +13,9 @@ import {
     Queue,
     RawPlaylist,
     RawSong,
-    Song,
+    Song
 } from "..";
-import YTSR, {Video} from 'ytsr';
-import {getData, getPreview} from "spotify-url-info";
-import {getPlaylist, getSong} from "apple-music-metadata";
-import {Client, Playlist as IPlaylist, Video as IVideo, VideoCompact} from "youtubei";
-import {ChannelType, GuildChannel} from "discord.js";
+import { cache } from "./Cache";
 
 let YouTube = new Client();
 
@@ -74,6 +75,7 @@ export class Utils {
      * @param {number} [Limit=1]
      * @return {Promise<Song[]>}
      */
+    @cache('search')
     static async search(Search: string, SOptions: PlayOptions = DefaultPlayOptions, Queue: Queue, Limit: number = 1): Promise<Song[]> {
         SOptions = Object.assign({}, DefaultPlayOptions, SOptions);
         let Filters;
